@@ -839,7 +839,7 @@ var CoursesComponent = /** @class */ (function () {
             this.Errormessage = 'Please fill the form';
         }
         else {
-            this.http.post('/api/course', JSON.stringify(CreateCourse.value)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/course', JSON.stringify(CreateCourse.value)).subscribe(function (response) {
                 CreateCourse.resetForm();
                 var message = JSON.parse(JSON.stringify(response));
                 _this.Errormessage = message.message;
@@ -854,7 +854,7 @@ var CoursesComponent = /** @class */ (function () {
     };
     CoursesComponent.prototype.getData = function () {
         var _this = this;
-        this.http.get('/api/GetActivelanguages').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/GetActivelanguages').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             for (var i in message) {
@@ -866,7 +866,7 @@ var CoursesComponent = /** @class */ (function () {
     };
     CoursesComponent.prototype.getCoursesData = function () {
         var _this = this;
-        this.http.get('/api/courses').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/courses').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             _this.courses.length = 0;
             // tslint:disable-next-line: forin
@@ -884,7 +884,7 @@ var CoursesComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role == token.role) {
@@ -965,7 +965,7 @@ var CreatelanguagepageComponent = /** @class */ (function () {
             this.Languagename = 'Please fill the form';
         }
         else {
-            this.http.post('/api/language', JSON.stringify(CreateLanguage.value)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/language', JSON.stringify(CreateLanguage.value)).subscribe(function (response) {
                 CreateLanguage.resetForm();
                 var message = JSON.parse(JSON.stringify(response));
                 _this.Languagename = message.message;
@@ -988,7 +988,7 @@ var CreatelanguagepageComponent = /** @class */ (function () {
     };
     CreatelanguagepageComponent.prototype.getData = function () {
         var _this = this;
-        this.http.get('/api/languages').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/languages').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.Languages = [];
@@ -1003,7 +1003,7 @@ var CreatelanguagepageComponent = /** @class */ (function () {
     CreatelanguagepageComponent.prototype.AcitvateLanguage = function (LanguageLoad) {
         var _this = this;
         var Language = { Language: LanguageLoad };
-        this.http.post('/api/LanguageActivate', Language).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/LanguageActivate', Language).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             _this.class1 = 'alert alert-danger';
             _this.role1 = 'alert';
@@ -1015,7 +1015,7 @@ var CreatelanguagepageComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role == token.role) {
@@ -1127,7 +1127,7 @@ var IndexComponent = /** @class */ (function () {
     IndexComponent.prototype.login = function (LoginForm) {
         var _this = this;
         localStorage.removeItem('token');
-        this.http.post('/api/auth', JSON.stringify(LoginForm.value)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/auth', JSON.stringify(LoginForm.value)).subscribe(function (response) {
             var token = JSON.parse(JSON.stringify(response));
             if (token && token.accessToken) {
                 if (token.role) {
@@ -1223,7 +1223,7 @@ var LandingpageComponent = /** @class */ (function () {
     };
     LandingpageComponent.prototype.getLanguageData = function () {
         var _this = this;
-        this.http.get('/api/languagesLesson').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/languagesLesson').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.Languages = [];
@@ -1240,7 +1240,7 @@ var LandingpageComponent = /** @class */ (function () {
     LandingpageComponent.prototype.Delete = function (Language, course, Lesson) {
         var _this = this;
         var DeleteData = { Language: Language, course: course, Lesson: Lesson };
-        this.http.post('/api/DeleteStartedCourse', JSON.stringify(DeleteData)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/DeleteStartedCourse', JSON.stringify(DeleteData)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             _this.errclass = 'alert alert-danger';
             _this.errrole = 'alert';
@@ -1250,7 +1250,7 @@ var LandingpageComponent = /** @class */ (function () {
     };
     LandingpageComponent.prototype.getCoursesData = function () {
         var _this = this;
-        this.http.get('/api/courses').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/courses').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             for (var i in message) {
@@ -1264,7 +1264,7 @@ var LandingpageComponent = /** @class */ (function () {
     LandingpageComponent.prototype.getLessonData = function (change) {
         var _this = this;
         if (change == 'Word Association') {
-            this.http.get('/api/wordassociation').subscribe(function (data) {
+            this.http.get('http://167.71.93.67:8080/api/wordassociation').subscribe(function (data) {
                 var message = JSON.parse(JSON.stringify(data));
                 // tslint:disable-next-line: forin
                 _this.WordAssociation = [];
@@ -1302,7 +1302,7 @@ var LandingpageComponent = /** @class */ (function () {
     LandingpageComponent.prototype.CourseStarted = function () {
         var _this = this;
         var email = { email: localStorage.getItem('email') };
-        this.http.post('/api/GetStartedCourses', JSON.stringify(email)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/GetStartedCourses', JSON.stringify(email)).subscribe(function (response) {
             var data = JSON.parse(JSON.stringify(response));
             console.log(data);
             _this.StartedCourses = [];
@@ -1321,7 +1321,7 @@ var LandingpageComponent = /** @class */ (function () {
         var _this = this;
         var Language = { Language: change };
         this.FilterLesson(Language);
-        this.http.post('/api/filterbyLanguageLesson', JSON.stringify(Language)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterbyLanguageLesson', JSON.stringify(Language)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.courses = [];
@@ -1348,7 +1348,7 @@ var LandingpageComponent = /** @class */ (function () {
         else {
             // Collect user details and save it to Database
             var UserCourseDetails = { email: this.email, Language: coursevalues.value.language, coursename: coursevalues.value.coursename, Lesson: coursevalues.value.Lesson };
-            this.http.post('/api/UserCourseDetails', JSON.stringify(UserCourseDetails)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/UserCourseDetails', JSON.stringify(UserCourseDetails)).subscribe(function (response) {
                 var message = JSON.parse(JSON.stringify(response));
                 if (message.message) {
                     _this._router.navigate(['/startcourse']);
@@ -1364,7 +1364,7 @@ var LandingpageComponent = /** @class */ (function () {
     //Filter Lesson by Language
     LandingpageComponent.prototype.FilterLesson = function (change) {
         var _this = this;
-        this.http.post('/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.Lessons = [];
@@ -1392,7 +1392,7 @@ var LandingpageComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role != token.role) {
@@ -1615,7 +1615,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                         Option3: saveData.value.Option3,
                         answer: saveData.value.Option1
                     };
-                    this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                    this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                         var message = JSON.parse(JSON.stringify(response));
                         saveData.resetForm();
                         _this.class = 'alert alert-danger';
@@ -1633,7 +1633,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                         Option3: saveData.value.Option3,
                         answer: saveData.value.Option2
                     };
-                    this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                    this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                         var message = JSON.parse(JSON.stringify(response));
                         saveData.resetForm();
                         _this.class = 'alert alert-danger';
@@ -1651,7 +1651,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                         Option3: saveData.value.Option3,
                         answer: saveData.value.Option3
                     };
-                    this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                    this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                         var message = JSON.parse(JSON.stringify(response));
                         saveData.resetForm();
                         _this.class = 'alert alert-danger';
@@ -1716,7 +1716,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                         ImageChange: this.imgURLUpfdate,
                         oldPicture: this.UpdateData[0].Path
                     };
-                    this.http.post('/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
+                    this.http.post('http://167.71.93.67:8080/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
                         var message = JSON.parse(JSON.stringify(response));
                         _this.classUpdate = 'alert alert-danger';
                         _this.roleUpdate = 'alert';
@@ -1746,7 +1746,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             ImageChange: this.imgURLUpfdate,
                             oldPicture: this.UpdateData[0].Path
                         };
-                        this.http.post('/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             _this.classUpdate = 'alert alert-danger';
                             _this.roleUpdate = 'alert';
@@ -1766,7 +1766,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             ImageChange: this.imgURLUpfdate,
                             oldPicture: this.UpdateData[0].Path
                         };
-                        this.http.post('/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             _this.classUpdate = 'alert alert-danger';
                             _this.roleUpdate = 'alert';
@@ -1789,7 +1789,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             ImageChange: this.imgURLUpfdate,
                             oldPicture: this.UpdateData[0].Path
                         };
-                        this.http.post('/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/Update', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             _this.classUpdate = 'alert alert-danger';
                             _this.roleUpdate = 'alert';
@@ -1849,7 +1849,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                         Option2: saveData.value.Option2,
                         Option3: saveData.value.Option3,
                         answer: saveData.value.Option1 };
-                    this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                    this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                         var message = JSON.parse(JSON.stringify(response));
                         saveData.resetForm();
                         _this.class = 'alert alert-danger';
@@ -1874,7 +1874,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             Option2: saveData.value.Option2,
                             Option3: saveData.value.Option3,
                             answer: saveData.value.Option2 };
-                        this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             saveData.resetForm();
                             _this.class = 'alert alert-danger';
@@ -1889,7 +1889,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             Option2: saveData.value.Option2,
                             Option3: saveData.value.Option3,
                             answer: saveData.value.Option3 };
-                        this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             saveData.resetForm();
                             _this.class = 'alert alert-danger';
@@ -1907,7 +1907,7 @@ var LessonquestionerComponent = /** @class */ (function () {
                             Option2: saveData.value.Option2,
                             Option3: saveData.value.Option3,
                             answer: saveData.value.Option2 };
-                        this.http.post('/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
+                        this.http.post('http://167.71.93.67:8080/api/WordAssociation', JSON.stringify(finalanswer)).subscribe(function (response) {
                             var message = JSON.parse(JSON.stringify(response));
                             saveData.resetForm();
                             _this.class = 'alert alert-danger';
@@ -1935,7 +1935,7 @@ var LessonquestionerComponent = /** @class */ (function () {
     LessonquestionerComponent.prototype.Delete = function (deleteid) {
         var _this = this;
         var deleteSentence = { Id: deleteid };
-        this.http.post('/api/deleteWordAssociation', JSON.stringify(deleteSentence)).subscribe(function (response) {
+        this.http.post('/8080/api/deleteWordAssociation', JSON.stringify(deleteSentence)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             _this.class2 = 'alert alert-danger';
             _this.role2 = 'alert';
@@ -1950,13 +1950,13 @@ var LessonquestionerComponent = /** @class */ (function () {
     LessonquestionerComponent.prototype.uploadImage = function () {
         var formdata = new FormData();
         formdata.append('file', this.blobimagefile);
-        this.http.post('/api/upload', JSON.stringify(formdata)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/upload', JSON.stringify(formdata)).subscribe(function (response) {
         });
     };
     // Get All Languages from Language table
     LessonquestionerComponent.prototype.getLanguageData = function () {
         var _this = this;
-        this.http.get('/api/languagesData').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/languagesData').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.Languages = [];
@@ -1973,7 +1973,7 @@ var LessonquestionerComponent = /** @class */ (function () {
         var _this = this;
         var Language = { Language: change };
         this.FilterLesson(Language);
-        this.http.post('/api/filterbyLanguage', JSON.stringify(Language)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterbyLanguage', JSON.stringify(Language)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.courses = [];
@@ -1988,7 +1988,7 @@ var LessonquestionerComponent = /** @class */ (function () {
     // Filter Lesson by Language
     LessonquestionerComponent.prototype.FilterLesson = function (change) {
         var _this = this;
-        this.http.post('/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.Lessons = [];
@@ -2005,7 +2005,7 @@ var LessonquestionerComponent = /** @class */ (function () {
     // Get all word Association data from server and display on the screen
     LessonquestionerComponent.prototype.getData = function () {
         var _this = this;
-        this.http.get('/api/wordassociation').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080api/wordassociation').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.WordAssociation = [];
@@ -2030,7 +2030,7 @@ var LessonquestionerComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role == token.role) {
@@ -2137,7 +2137,7 @@ var LessonsComponent = /** @class */ (function () {
     };
     LessonsComponent.prototype.getLanguageData = function () {
         var _this = this;
-        this.http.get('/api/languagesData').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/languagesData').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.Languages = [];
@@ -2151,7 +2151,7 @@ var LessonsComponent = /** @class */ (function () {
     };
     LessonsComponent.prototype.getCoursesData = function () {
         var _this = this;
-        this.http.get('/api/courses').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/courses').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             for (var i in message) {
@@ -2165,7 +2165,7 @@ var LessonsComponent = /** @class */ (function () {
         var _this = this;
         var Language = { Language: change };
         this.FilterLesson(Language);
-        this.http.post('/api/filterbyLanguage', JSON.stringify(Language)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterbyLanguage', JSON.stringify(Language)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.courses = [];
@@ -2181,7 +2181,7 @@ var LessonsComponent = /** @class */ (function () {
     LessonsComponent.prototype.ChangeCourse = function (change) {
         var _this = this;
         var Course = { Course: change };
-        this.http.post('/api/filterLessonsbycourse', JSON.stringify(Course)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterLessonsbycourse', JSON.stringify(Course)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.Lessons = [];
@@ -2198,7 +2198,7 @@ var LessonsComponent = /** @class */ (function () {
     //Filter Lesson by Language
     LessonsComponent.prototype.FilterLesson = function (change) {
         var _this = this;
-        this.http.post('/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/filterLessonsbyLanguage', JSON.stringify(change)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             // tslint:disable-next-line: forin
             _this.Lessons = [];
@@ -2227,7 +2227,7 @@ var LessonsComponent = /** @class */ (function () {
                 this.Errormessage = 'Please fill the form';
             }
             else {
-                this.http.post('/api/lasson', JSON.stringify(CreateLesson.value)).subscribe(function (response) {
+                this.http.post('http://167.71.93.67:8080/api/lasson', JSON.stringify(CreateLesson.value)).subscribe(function (response) {
                     var message = JSON.parse(JSON.stringify(response));
                     _this.VerifyToken();
                     _this.getLessonData();
@@ -2260,7 +2260,7 @@ var LessonsComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role == token.role) {
@@ -2285,7 +2285,7 @@ var LessonsComponent = /** @class */ (function () {
     };
     LessonsComponent.prototype.getLessonData = function () {
         var _this = this;
-        this.http.get('/api/Lessons').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/Lessons').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             _this.Lessons = [];
             // tslint:disable-next-line: forin
@@ -2489,7 +2489,7 @@ var UserRegistration = /** @class */ (function () {
         this.RegisterUserData = {};
         this.submitted = false;
         this.isCollapsed = true;
-        this.url = '/api';
+        this.url = 'http://167.71.93.67:8080/api';
     }
     UserRegistration.prototype.ngOnInit = function () {
         var body = document.getElementsByTagName('body')[0];
@@ -2516,7 +2516,7 @@ var UserRegistration = /** @class */ (function () {
         else {
             // tslint:disable-next-line: triple-equals
             if (Registratiomform.value.Password == Registratiomform.value.ConfirmPassword) {
-                this.http.post('/api/users', JSON.stringify(Registratiomform.value)).subscribe(function (response) {
+                this.http.post('http://167.71.93.67:8080/api/users', JSON.stringify(Registratiomform.value)).subscribe(function (response) {
                     var message = JSON.parse(JSON.stringify(response));
                     _this.message = message.message;
                     Registratiomform.resetForm();
@@ -2616,7 +2616,7 @@ var SentenceconstractionComponent = /** @class */ (function () {
     SentenceconstractionComponent.prototype.UpdatingData = function (SentenceContructionUpdate) {
         var _this = this;
         var submitdata = { Id: this.UpdateData[0].Id, Firstsentance: SentenceContructionUpdate.value.Firstsentance, SecondUpsentance: SentenceContructionUpdate.value.SecondUpsentance };
-        this.http.post('http://localhost:8080/api/UpdateDataSentance', JSON.stringify(submitdata)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/UpdateDataSentance', JSON.stringify(submitdata)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             _this.class3 = 'alert alert-danger';
             _this.role3 = 'alert';
@@ -2628,7 +2628,7 @@ var SentenceconstractionComponent = /** @class */ (function () {
     SentenceconstractionComponent.prototype.Delete = function (deleteid) {
         var _this = this;
         var deleteSentence = { Id: deleteid };
-        this.http.post('http://localhost:8080/api/deleteSentence', JSON.stringify(deleteSentence)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/deleteSentence', JSON.stringify(deleteSentence)).subscribe(function (response) {
             var message = JSON.parse(JSON.stringify(response));
             _this.display = 'block';
             _this.class2 = 'alert alert-danger';
@@ -2665,7 +2665,7 @@ var SentenceconstractionComponent = /** @class */ (function () {
             this.Errormessage = 'Make sure all fields are filled';
         }
         else {
-            this.http.post('http://localhost:8080/api/sentancecontruction', JSON.stringify(SentenceContruction.value)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/sentancecontruction', JSON.stringify(SentenceContruction.value)).subscribe(function (response) {
                 var message = JSON.parse(JSON.stringify(response));
                 SentenceContruction.resetForm();
                 _this.display = 'block';
@@ -2679,7 +2679,7 @@ var SentenceconstractionComponent = /** @class */ (function () {
     // retrieve all data from database for sentance construction
     SentenceconstractionComponent.prototype.getData = function () {
         var _this = this;
-        this.http.get('/api/updatesentenceconstruction').subscribe(function (data) {
+        this.http.get('http://167.71.93.67:8080/api/updatesentenceconstruction').subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             console.log(message);
             // tslint:disable-next-line: forin
@@ -2702,7 +2702,7 @@ var SentenceconstractionComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role == token.role) {
@@ -2924,7 +2924,7 @@ var StartcourseComponent = /** @class */ (function () {
     StartcourseComponent.prototype.getLessonData = function () {
         var _this = this;
         var LessonId = { LessonId: localStorage.getItem('LesssonId') };
-        this.http.post('/api/GetbyLessonIdwordassociation', JSON.stringify(LessonId)).subscribe(function (data) {
+        this.http.post('http://167.71.93.67:8080/api/GetbyLessonIdwordassociation', JSON.stringify(LessonId)).subscribe(function (data) {
             var message = JSON.parse(JSON.stringify(data));
             // tslint:disable-next-line: forin
             _this.WordAssociation.push({ Id: message[0].Id, option1: message[0].optionone, option2: message[0].optiontwo, option3: message[0].optionthree, Answer: message[0].Answer, Path: message[0].ImageName });
@@ -2952,7 +2952,7 @@ var StartcourseComponent = /** @class */ (function () {
     // GetCreated course for current user
     StartcourseComponent.prototype.GetCourse = function () {
         var emailcon = { email: this.email };
-        this.http.post('/api/CourseForCurrentUser', JSON.stringify(emailcon)).subscribe(function (response) {
+        this.http.post('http://167.71.93.67:8080/api/CourseForCurrentUser', JSON.stringify(emailcon)).subscribe(function (response) {
         });
     };
     //Verifytoken and also check user role
@@ -2961,7 +2961,7 @@ var StartcourseComponent = /** @class */ (function () {
         var Token = { token: localStorage.getItem('token') };
         var role = { role: localStorage.getItem('role') };
         if (localStorage.getItem('token')) {
-            this.http.post('/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
+            this.http.post('http://167.71.93.67:8080/api/authverification', JSON.stringify(Token)).subscribe(function (response) {
                 var token = JSON.parse(JSON.stringify(response));
                 // tslint:disable-next-line: triple-equals
                 if (role.role != token.role) {
@@ -2990,7 +2990,7 @@ var StartcourseComponent = /** @class */ (function () {
     StartcourseComponent.prototype.LoadCourseData = function () {
         var _this = this;
         var Useremail = { email: localStorage.getItem('email') };
-        this.http.post('/api/CourseForCurrentUser', JSON.stringify(Useremail)).subscribe(function (reponse) {
+        this.http.post('http://167.71.93.67:8080/api/CourseForCurrentUser', JSON.stringify(Useremail)).subscribe(function (reponse) {
             var CourseInfor = JSON.parse(JSON.stringify(reponse));
             // tslint:disable-next-line: forin
             // looping through all data from response and same to array
