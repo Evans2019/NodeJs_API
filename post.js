@@ -637,8 +637,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                     console.log('Something wrong')
                     } else {
                         // Convert course image
-                       responsecourseimage.type = matches[1];
-                       responsecourseimage.data = new Buffer.from(matches[2], 'base64');
+                       responsecourseimage.type = courseimage[1];
+                       responsecourseimage.data = new Buffer.from(courseimage[2], 'base64');
                        let decodeding = responsecourseimage;
                        let imageBuffer = decodeding.data;
                        let type = decodeding.type;
@@ -647,8 +647,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                        fs.writeFileSync('./public/images/'+fileName, imageBuffer, 'utf8');
        
                        //Convert course icon
-                       responsecourseicon.type = matches[1];
-                       responsecourseicon.data = new Buffer.from(matches[2], 'base64');
+                       responsecourseicon.type = courseicon[1];
+                       responsecourseicon.data = new Buffer.from(courseicon[2], 'base64');
                        let decodedingicon = responsecourseicon;
                        let imageBuffericon = decodedingicon.data;
                        let typeicon = decodedingicon.type;
