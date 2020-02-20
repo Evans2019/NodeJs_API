@@ -405,12 +405,13 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
 
     //Activate Language
     app.post('/api/LanguageActivate', (req, res) =>{
-        var sql = "UPDATE vambo.language SET isActive =true WHERE Language = ?";
-        connection.query(sql,[req.body.Language], (err, rows, fields) => {
+        var sql = "UPDATE vambo.language SET isActive = ? WHERE Language = ?";
+        var values =[[req.body.active, req.body.Language]];
+        connection.query(sql,[req.body.active, req.body.Language], (err, rows, fields) => {
             if(err) {
-                console.log('Language is not activated');
+                console.log(err);
             } else {
-                console.log('Language is activated');
+                console.log('Language chnaged to '+req.body.active);
                 res.json({LanguageMessage:  req.body.Language +' is activated'});
                 
             }

@@ -24,7 +24,7 @@ module.exports = function (app, connection, jwt) {
 
     //Get all data from quiz
     app.get('/api/wordassociation' , (req, res) => {
-        connection.query ('SELECT * FROM vambo.quizz', (err, rows, fields)=>{
+        connection.query ('SELECT * FROM vambo.quiz', (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let quiz =[];
@@ -152,7 +152,8 @@ module.exports = function (app, connection, jwt) {
                //Looping throw all languages
                 for (var i in rows) {
                     var getallLanguages = count[i].Language;
-                    storelanguages.push({Language: getallLanguages});
+                    var Isactive = count[i].isActive;
+                    storelanguages.push({Language: getallLanguages, isActive: Isactive});
                 }
                 res.json(storelanguages);
                 
@@ -170,10 +171,11 @@ module.exports = function (app, connection, jwt) {
                let storeLessons =[];
                //Looping throw all Lessons
                 for (var i in rows) {
-                    var getallLesson = count[i].lessonname;
+                    var getallLessonId = count[i].lessonId;
+                    var getallLesson = count[i].lessontype;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
-                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse });
+                    storeLessons.push({lessonId: getallLessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse });
                 }
                 res.json(storeLessons);
                 
