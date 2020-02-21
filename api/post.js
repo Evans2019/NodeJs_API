@@ -434,17 +434,22 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         var sqlCheck = "SELECT * FROM vambo.courses where Language = ?";
         connection.query(sqlCheck, [req.body.Language], (err, result, fields) => {
             if(!err) {
-                let count =JSON.parse(JSON.stringify(result))
-                let storecourses=[];
-                //Looping throw all languages
-                 for (var i in result) {
-                     var getallcourses= count[i].coursename ;
-                     storecourses.push({courses: getallcourses});
-                 }
-                 res.json(storecourses);
+                if(results.length > 0 ){
+                    let count =JSON.parse(JSON.stringify(result))
+                    let storecourses=[];
+                    //Looping throw all languages
+                    for (var i in result) {
+                        var getallcourses= count[i].coursename ;
+                        storecourses.push({courses: getallcourses});
+                    }
+                    res.json(storecourses);
+                } else {
+                    console.log('Language not found')
+                }
 
             } else {
-
+                console.log(err);
+                console.log('error')
             }
 
         })
