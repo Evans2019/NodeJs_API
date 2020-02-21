@@ -434,7 +434,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         var sqlCheck = "SELECT * FROM vambo.courses where Language = ?";
         connection.query(sqlCheck, [req.body.Language], (err, result, fields) => {
             if(!err) {
-                if(results.length > 0 ){
+                if(result.length > 0 ){
                     let count =JSON.parse(JSON.stringify(result))
                     let storecourses=[];
                     //Looping throw all languages
@@ -455,6 +455,35 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         })
 
     })
+
+      //Filter data from Courses by Language
+      app.post('/api/Coursesfilter', (req, res) => {
+        console.log(req.body.Language);
+        var sqlCheck = "SELECT * FROM vambo.courses where Language = ?";
+        connection.query(sqlCheck, [req.body.Language], (err, result, fields) => {
+            if(!err) {
+                if(result.length > 0 ){
+                    let count =JSON.parse(JSON.stringify(result))
+                    let storecourses=[];
+                    //Looping throw all languages
+                    for (var i in result) {
+                        var getallcourses= count[i].coursename ;
+                        storecourses.push({courses: getallcourses});
+                    }
+                    res.json(storecourses);
+                } else {
+                    console.log('Language not found')
+                }
+
+            } else {
+                console.log(err);
+                console.log('error')
+            }
+
+        })
+
+    })
+
 
     // GetLessonId for a centain Course
     app.post('/api/GetLeesonId', (req, res) => {
@@ -620,7 +649,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                     var getallLesson = count[i].lessonname;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
-                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse });
+                    var getallLessontype = count[i].lessontype;
+                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse, lessontype:getallLessontype });
                 }
                 res.json(storeLessons);
                 
