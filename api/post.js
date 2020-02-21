@@ -681,7 +681,16 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                         //Insert statement to database
                         var LessonID = uniqid('Lesson-');
                         var sql = "INSERT INTO vambo.lessons (lessonId, lessonname,lessondescription,lessontype,Language,course,isfree,lessonicon, lessonimage, Datecreated ) VALUES ?";
-                        var values =[[LessonID,req.body.Lessonname,req.body.Lessondescription,LessonName, req.body.language,req.body.coursename,'yes', "","", datetime]];
+                        var values =[[LessonID,
+                            req.body.Lessonname,
+                            req.body.Lessondescription,
+                            req.body.Lesson, 
+                            req.body.language,
+                            req.body.coursename,
+                            'yes', 
+                            "",
+                            "", 
+                            datetime]];
                         connection.query(sql, [values], (err, rows) => {
                             if (err ) {
                                 console.log(err)
