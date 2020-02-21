@@ -172,10 +172,11 @@ module.exports = function (app, connection, jwt) {
                //Looping throw all Lessons
                 for (var i in rows) {
                     var getallLessonId = count[i].lessonId;
+                    var getallLessontype = count[i].lessontype;
                     var getallLesson = count[i].lessonname;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
-                    storeLessons.push({lessonId: getallLessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse });
+                    storeLessons.push({lessonId: getallLessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse , lessontype: getallLessontype});
                 }
                 res.json(storeLessons);
                 
