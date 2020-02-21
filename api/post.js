@@ -592,9 +592,10 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                //Looping throw all Lessons
                 for (var i in rows) {
                     var getallLesson = count[i].lessonname;
+                    var getallLessontype = count[i].lessontype;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
-                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse });
+                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse, lessontype:getallLessontype });
                 }
                 console.log('Data is requested');
                 res.json(storeLessons);
