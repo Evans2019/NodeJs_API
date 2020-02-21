@@ -152,8 +152,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     })
 
     //Delete wordAssociation delete quizz
-    app.post('/api/deletequizz', (req, res)=>{
-        var sql = "DELETE FROM vambo.quiz WHERE quizId =?";
+    app.post('/api/deleteWordAssociation', (req, res)=>{
+        var sql = "DELETE FROM vambo.wordassociation WHERE wordAssociationId =?";
         connection.query(sql, [req.body.Id], (err, results, fields) => {
             if (err) {
                 console.log(err)
@@ -226,7 +226,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     //Create word Association
     app.post('/api/WordAssociation', (req, res) => {
         console.log('Recieved')
-        var sql = "INSERT INTO vambo.wordassociation (LessonID, wordAssociationId  , option1 , option2 , option3 , answer, ImagePath  , Datecreated) VALUES ?";
+        var sql = "INSERT INTO vambo.wordassociation (LessonID, wordAssociationId  , option1 , option2 , option3 , answer, lessonname, ImagePath  , Datecreated) VALUES ?";
        
 
             let matches = req.body.base64.match(/^data:([A-za-z-+\/]+);base64,(.+)$/);
@@ -243,7 +243,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
             let extension = mime.extension(type);
             let fileName = uniqid('ImageWA')+'.'+extension;
               fs.writeFileSync('./public/images/'+fileName, imageBuffer, 'utf8');
-              var values =[[req.body.LessonID,uniqid('WordAss-'),req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer,fileName,datetime]];
+              var values =[[req.body.LessonID,uniqid('WordAss-'),req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer,req.body.lessonname,fileName,datetime]];
                 connection.query(sql, [values], (err, results, fields) => {
                 if (err) {
                     console.log(err)

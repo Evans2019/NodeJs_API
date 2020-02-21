@@ -24,18 +24,21 @@ module.exports = function (app, connection, jwt) {
 
     //Get all data from quiz
     app.get('/api/wordassociation' , (req, res) => {
-        connection.query ('SELECT * FROM vambo.quiz', (err, rows, fields)=>{
+        connection.query ('SELECT * FROM vambo.wordassociation', (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let quiz =[];
                //Looping throw all languages
                 for (var i in rows) {
-                    var getId= count[i].quizId;
+                    var getId= count[i].wordAssociationId;
                     var option1 = count[i].option1;
                     var option2 = count[i].option2;
                     var imagepath =count[i].ImagePath;
+                    var option3 =count[i].option3;
+                    var Answer =count[i].Answer;
+                    var lessonname =count[i].lessonname;
                     var AudioPath = count[i].pathaudio;
-                    quiz.push({Id: getId ,optionone: option1, optiontwo:option2, ImageName:imagepath ,pathaudio:AudioPath });
+                    quiz.push({Id: getId ,optionone: option1, optiontwo:option2,optionthree:option3,Answer:Answer,lessonname:lessonname, ImageName:imagepath ,pathaudio:AudioPath });
                 }
                 res.json(quiz);
                 
@@ -173,10 +176,11 @@ module.exports = function (app, connection, jwt) {
                 for (var i in rows) {
                     var getallLessonId = count[i].lessonId;
                     var getallLessontype = count[i].lessontype;
+                    var getallLessondescription = count[i].lessondescription;
                     var getallLesson = count[i].lessonname;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
-                    storeLessons.push({lessonId: getallLessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse , lessontype: getallLessontype});
+                    storeLessons.push({lessonId: getallLessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse , lessontype: getallLessontype ,lessondescription: getallLessondescription });
                 }
                 res.json(storeLessons);
                 
