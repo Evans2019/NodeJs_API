@@ -35,7 +35,7 @@ module.exports = function (app, connection, jwt) {
                     var option2 = count[i].option2;
                     var imagepath =count[i].ImagePath;
                     var option3 =count[i].option3;
-                    var Answer =count[i].Answer;
+                    var Answer =count[i].answer;
                     var lessonname =count[i].lessonname;
                     var AudioPath = count[i].pathaudio;
                     quiz.push({Id: getId ,optionone: option1, optiontwo:option2,optionthree:option3,Answer:Answer,lessonname:lessonname, ImageName:imagepath ,pathaudio:AudioPath });
