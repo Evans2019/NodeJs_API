@@ -468,7 +468,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                     //Looping throw all languages
                     for (var i in result) {
                         var getallcourses= count[i].coursename ;
-                        storecourses.push({courses: getallcourses});
+                        var getallLanguages= count[i].Language  ;
+                        storecourses.push({courses: getallcourses, Language: getallLanguages});
                     }
                     res.json(storecourses);
                 } else {
@@ -667,8 +668,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
       
 
         //Check if data i want to insert to database is exist
-        const LessonName = req.body.Lesson;
-        var sqlCheck = "SELECT * FROM vambo.lessons where course = ? and Language = ? and lessonname = ?";
+        const LessonName = req.body.coursename;
+        var sqlCheck = "SELECT * FROM vambo.lessons where course = ? and Language = ? and lessonname = ? ";
         connection.query(sqlCheck, [req.body.coursename,req.body.language,LessonName], (err, row2, fields) => {
             if (err) {
                 console.log(err)

@@ -86,7 +86,7 @@ module.exports = function (app, connection, jwt) {
 
     //Get all Active Languages
     app.get('/api/GetActivelanguages' , (req, res) => {
-        connection.query ('SELECT * FROM vambo.language where isActive=true', (err, rows, fields)=>{
+        connection.query ('SELECT * FROM vambo.language', (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let storelanguages =[];
