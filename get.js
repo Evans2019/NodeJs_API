@@ -221,17 +221,17 @@ module.exports = function (app, connection, jwt) {
     
     // Get 
     app.get('/api/getWordassociation' , (req, res) => {
-        connection.query ('SELECT * FROM vambo.quizz', (err, rows, fields)=>{
+        connection.query ('SELECT * FROM vambo.quiz', (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let wordassociation =[];
-               //Looping throw all languages
+               //Looping throw all languagess
                 for (var i in rows) {
                     var getId= count[i].wordAssociationId;
                     var option1 = count[i].option1;
                     var option2 = count[i].option2;
                     var pathaudio = count[i].AudioPath;
-                    var imagepath =count[i].ImagePath;
+                    var imagepath = count[i].ImagePath;
                     wordassociation.push({Id: getId ,optionone: option1, optiontwo:option2, ImageName:imagepath ,pathaudio: pathaudio });
                 }
                 res.json(wordassociation);

@@ -192,6 +192,17 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         })
     })
     
+    //deletequizzwordassociation
+    app.post('/api/deletequizzwordassociation', (req, res)=>{
+        var sql = "DELETE FROM vambo.quiz WHERE LessonID =?";
+        connection.query(sql, [req.body.Id], (err, results, fields) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send({'message':'Data is deleted'});
+            }
+        })
+    })
 
     //Delete sentance 
     app.post('/api/deleteSentence', (req, res)=>{
