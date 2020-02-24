@@ -234,8 +234,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
      app.post('/api/quiz', (req, res) => {
         console.log('Recieved')
         if (req.body.base64 === undefined){
-            var sql = "INSERT INTO vambo.quiz (LessonID, quizId  , option1 , option2 , ImagePath  , AudioPath, Datecreated) VALUES ?";
-            var values =[[req.body.LessonID,uniqid('Quiz-'),req.body.Option1,req.body.Option2,'','',datetime]];
+            var sql = "INSERT INTO vambo.quiz (LessonID, quizId  , option1 , option2 ,language, ImagePath  , AudioPath, Datecreated) VALUES ?";
+            var values =[[req.body.LessonID,uniqid('Quiz-'),req.body.Option1,req.body.Option2,req.body.language,'','',datetime]];
                 connection.query(sql, [values], (err, results, fields) => {
                 if (err) {
                     console.log(err)
@@ -245,7 +245,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
             })
 
         }else{
-            var sql = "INSERT INTO vambo.quiz (LessonID, quizId  , option1 , option2 , ImagePath  , AudioPath, Datecreated) VALUES ?";
+            var sql = "INSERT INTO vambo.quiz (LessonID, quizId  , option1 , option2 , language,ImagePath  , AudioPath, Datecreated) VALUES ?";
     
             let matches = req.body.base64.match(/^data:([A-za-z-+\/]+);base64,(.+)$/);
             // get image size from base64 string
@@ -261,7 +261,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
             let extension = mime.extension(type);
             let fileName = uniqid('ImageWA')+'.'+extension;
               fs.writeFileSync('./public/images/'+fileName, imageBuffer, 'utf8');
-              var values =[[req.body.LessonID,uniqid('Quiz-'),req.body.Option1,req.body.Option2,fileName,'',datetime]];
+              var values =[[req.body.LessonID,uniqid('Quiz-'),req.body.Option1,req.body.Option2,req.body.language,fileName,'',datetime]];
                 connection.query(sql, [values], (err, results, fields) => {
                 if (err) {
                     console.log(err)
@@ -277,7 +277,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     //Create word Association
     app.post('/api/WordAssociation', (req, res) => {
         console.log('Recieved')
-        var sql = "INSERT INTO vambo.wordassociation (LessonID, wordAssociationId  , option1 , option2 , option3 , answer, lessonname, ImagePath  , Datecreated) VALUES ?";
+        var sql = "INSERT INTO vambo.wordassociation (LessonID, wordAssociationId  , option1 , option2 , option3 , answer,language, lessonname, ImagePath  , Datecreated) VALUES ?";
             let matches = req.body.base64.match(/^data:([A-za-z-+\/]+);base64,(.+)$/);
             // get image size from base64 string
             let response = {}
@@ -292,7 +292,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
             let extension = mime.extension(type);
             let fileName = uniqid('ImageWA')+'.'+extension;
               fs.writeFileSync('./public/images/'+fileName, imageBuffer, 'utf8');
-              var values =[[req.body.LessonID,uniqid('WordAss-'),req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer,req.body.lessonname,fileName,datetime]];
+              var values =[[req.body.LessonID,uniqid('WordAss-'),req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer,req.body.language,req.body.lessonname,fileName,datetime]];
                 connection.query(sql, [values], (err, results, fields) => {
                 if (err) {
                     console.log(err)
@@ -588,8 +588,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     // Get All wordAssociation Quiz by LessonId
     //get all data from wordassociation table
     app.post('/api/GetbyLessonIdwordassociation' , (req, res) => {
-        var sqlCheck = "SELECT * FROM vambo.wordassociation where LessonID = ? ";
-        connection.query (sqlCheck, [req.body.LessonId], (err, rows, fields)=>{
+        var sqlCheck = "SELECT * FROM vambo.wordassociation where LessonID = ? and language = ?";
+        connection.query (sqlCheck, [req.body.LessonId,req.body.Language], (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let wordassociation =[];
@@ -615,8 +615,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
      // Get All Quizz by LessonId
     //get all data from Quizz table
     app.post('/api/GetbyLessonIdquiz' , (req, res) => {
-        var sqlCheck = "SELECT * FROM vambo.quiz where LessonID = ? ";
-        connection.query (sqlCheck, [req.body.LessonId], (err, rows, fields)=>{
+        var sqlCheck = "SELECT * FROM vambo.quiz where LessonID = ? and Language = ? ";
+        connection.query (sqlCheck, [req.body.LessonId, req.body.Language], (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let quizz =[];
