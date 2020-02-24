@@ -89,7 +89,9 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
          var sqlUpdate = "UPDATE vambo.wordassociation SET option1 =? , option2 = ?,option3 = ?, answer = ? WHERE wordAssociationId = ?";
 
          // Checking if new image exist
-         if (req.body.ImageChange === undefined && req.body.ImageChange == null && req.body.ImageChange == ''){
+         if (req.body.ImageChange === undefined || 
+            req.body.ImageChange == null || 
+            req.body.ImageChange == '' ){
             connection.query(sqlUpdate, [req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer, req.body.Id ], (err, results, fields) => {
                 if (err) {
                     console.log(err)
