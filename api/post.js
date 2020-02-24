@@ -89,7 +89,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
          var sqlUpdate = "UPDATE vambo.wordassociation SET option1 =? , option2 = ?,option3 = ?, answer = ? WHERE wordAssociationId = ?";
 
          // Checking if new image exist
-         if (req.body.ImageChange === undefined || req.body.ImageChange == null){
+         if (req.body.ImageChange === undefined && req.body.ImageChange == null && req.body.ImageChange == ''){
             connection.query(sqlUpdate, [req.body.Option1,req.body.Option2,req.body.Option3,req.body.answer, req.body.Id ], (err, results, fields) => {
                 if (err) {
                     console.log(err)
@@ -190,7 +190,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
      //Create Quiz
      app.post('/api/quiz', (req, res) => {
         console.log('Recieved')
-        if (req.body.base64 === undefined || req.body.base64 == null){
+        if (req.body.base64 === undefined){
             var sql = "INSERT INTO vambo.quiz (LessonID, quizId  , option1 , option2 , ImagePath  , AudioPath, Datecreated) VALUES ?";
             var values =[[req.body.LessonID,uniqid('Quiz-'),req.body.Option1,req.body.Option2,'','',datetime]];
                 connection.query(sql, [values], (err, results, fields) => {
