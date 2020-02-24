@@ -44,6 +44,38 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
 
         })
      })
+
+     // Delete Lesson
+     app.post('/api/deleteLesson', (req, res) =>{
+        var sql = "DELETE FROM vambo.lessons WHERE lessonId =? ";
+        var sqlWord = "DELETE FROM vambo.wordassociation WHERE LessonID =? ";
+        var sqlQuiz = "DELETE FROM vambo.quiz WHERE LessonID =? ";
+        try{
+            connection.query(sql, [req.body.lessonId], (err, results, fields) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    connection.query(sqlWord, [req.body.lessonId], (err, results, fields) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            connection.query(sqlQuiz, [req.body.lessonId], (err, results, fields) => {
+                                if (err) {
+                                    console.log(err)
+                                } else {
+                                    res.send({'message':'Data is deleted'});
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+
+        } catch(e){
+            next(e);
+        }
+     })
+
      // Delete Started Course
      app.post('/api/DeleteStartedCourse', (req, res)=>{
         var sql = "DELETE FROM vambo.startedcourses WHERE languag =? and coursename =? and Lesson=? ";
@@ -199,7 +231,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                 if (err) {
                     console.log(err)
                 } else {
-                    res.send({'message':'Data saved you can create another Quiz'});
+                    res.send({'message':'Data saved you can create another Word Association'});
                 }
             })
 
@@ -225,7 +257,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                 if (err) {
                     console.log(err)
                 } else {
-                    res.send({'message':'Data saved you can create another Quiz'});
+                    res.send({'message':'Data saved you can create another Word Association'});
                 }
             })
         }
@@ -237,8 +269,6 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     app.post('/api/WordAssociation', (req, res) => {
         console.log('Recieved')
         var sql = "INSERT INTO vambo.wordassociation (LessonID, wordAssociationId  , option1 , option2 , option3 , answer, lessonname, ImagePath  , Datecreated) VALUES ?";
-       
-
             let matches = req.body.base64.match(/^data:([A-za-z-+\/]+);base64,(.+)$/);
             // get image size from base64 string
             let response = {}
@@ -264,7 +294,6 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         }
     })
     
-    var message;
     //add user
     app.post('/api/users', (req, res) => {
         const user = req.body;
@@ -358,6 +387,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
              }
          })
     });
+
     //Creating a Course
     app.post('/api/course', (req, res) => {
         const CouserName = req.body.coursename;
@@ -674,9 +704,6 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
 
     //Creating a Lesson
     app.post('/api/lasson', (req, res) => {
-
-      
-
         //Check if data i want to insert to database is exist
         const LessonName = req.body.coursename;
         var sqlCheck = "SELECT * FROM vambo.lessons where course = ? and Language = ? and lessonname = ? ";

@@ -166,6 +166,7 @@ module.exports = function (app, connection, jwt) {
             }
         })
     });
+    
      //Displaying all data from Lesson Table
      app.get('/api/Lessons' , (req, res) => {
         connection.query ('SELECT * FROM vambo.lessons', (err, rows, fields)=>{
@@ -217,6 +218,31 @@ module.exports = function (app, connection, jwt) {
             }
         })
     });
+    
+    // Get 
+    app.get('/api/getWordassociation' , (req, res) => {
+        connection.query ('SELECT * FROM vambo.quizz', (err, rows, fields)=>{
+            if(!err){
+               let count =JSON.parse(JSON.stringify(rows))
+               let wordassociation =[];
+               //Looping throw all languages
+                for (var i in rows) {
+                    var getId= count[i].wordAssociationId;
+                    var option1 = count[i].option1;
+                    var option2 = count[i].option2;
+                    var pathaudio = count[i].AudioPath;
+                    var imagepath =count[i].ImagePath;
+                    wordassociation.push({Id: getId ,optionone: option1, optiontwo:option2, ImageName:imagepath ,pathaudio: pathaudio });
+                }
+                res.json(wordassociation);
+                
+            }else{
+                console.log(err);
+                console.log('Data is not requested');
+            }
+        })
+
+    })
 
     //Displaying all data from course Table
     app.get('/api/courses' , (req, res) => {
