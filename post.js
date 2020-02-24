@@ -50,11 +50,11 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         var sql = "DELETE FROM vambo.lessons WHERE lessonId =? ";
         var sqlWord = "DELETE FROM vambo.wordassociation WHERE LessonID =? ";
         var sqlQuiz = "DELETE FROM vambo.quiz WHERE LessonID =? ";
-        try{
-            connection.query(sql, [req.body.lessonId], (err, results, fields) => {
+        connection.query(sql, [req.body.lessonId], (err, results, fields) => {
                 if (err) {
-                    console.log(err)
+                   
                 } else {
+                    console.
                     connection.query(sqlWord, [req.body.lessonId], (err, results, fields) => {
                         if (err) {
                             console.log(err)
@@ -70,10 +70,6 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                     })
                 }
             })
-
-        } catch(e){
-            next(e);
-        }
      })
 
      // Delete Started Course
