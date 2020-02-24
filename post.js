@@ -716,8 +716,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     app.post('/api/lasson', (req, res) => {
         //Check if data i want to insert to database is exist
         const LessonName = req.body.coursename;
-        var sqlCheck = "SELECT * FROM vambo.lessons where course = ? and Language = ? and lessonname = ? ";
-        connection.query(sqlCheck, [req.body.coursename,req.body.language,LessonName], (err, row2, fields) => {
+        var sqlCheck = "SELECT * FROM vambo.lessons where course = ? and lessonname = ? ";
+        connection.query(sqlCheck, [req.body.coursename,req.body.Lessonname ], (err, row2, fields) => {
             if (err) {
                 console.log(err)
             } else {
@@ -742,7 +742,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                             if (err ) {
                                 console.log(err)
                             } else {
-                                res.json({message: 'Lesson is created' , LessonID: LessonID , Language: req.body.language, CourseName:req.body.coursename, Status: true });
+                                res.json({message: 'Lesson is created' ,Lessonname: req.body.Lessonname, LessonID: LessonID , Language: req.body.language, CourseName:req.body.coursename, Status: true });
                             }
                                             
                         });
