@@ -588,8 +588,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     // Get All wordAssociation Quiz by LessonId
     //get all data from wordassociation table
     app.post('/api/GetbyLessonIdwordassociation' , (req, res) => {
-        var sqlCheck = "SELECT * FROM vambo.wordassociation where LessonID = ? and language = ?";
-        connection.query (sqlCheck, [req.body.LessonId,req.body.Language], (err, rows, fields)=>{
+        var sqlCheck = "SELECT * FROM vambo.wordassociation where LessonID = ?";
+        connection.query (sqlCheck, [req.body.LessonId], (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let wordassociation =[];
@@ -615,8 +615,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
      // Get All Quizz by LessonId
     //get all data from Quizz table
     app.post('/api/GetbyLessonIdquiz' , (req, res) => {
-        var sqlCheck = "SELECT * FROM vambo.quiz where LessonID = ? and Language = ? ";
-        connection.query (sqlCheck, [req.body.LessonId, req.body.Language], (err, rows, fields)=>{
+        var sqlCheck = "SELECT * FROM vambo.quiz where LessonID = ?  ";
+        connection.query (sqlCheck, [req.body.LessonId], (err, rows, fields)=>{
             if(!err){
                let count =JSON.parse(JSON.stringify(rows))
                let quizz =[];
