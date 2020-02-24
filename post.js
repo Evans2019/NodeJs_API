@@ -180,7 +180,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         })
     })
 
-    //Delete wordAssociation delete quizz
+    //Delete Quiz Word 
     app.post('/api/deleteWordAssociation', (req, res)=>{
         var sql = "DELETE FROM vambo.wordassociation WHERE wordAssociationId =?";
         connection.query(sql, [req.body.Id], (err, results, fields) => {
@@ -188,18 +188,21 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                 console.log(err)
             } else {
                 res.send({'message':'Data is deleted'});
+                
             }
         })
     })
     
     //deletequizzwordassociation
     app.post('/api/deletequizzwordassociation', (req, res)=>{
-        var sql = "DELETE FROM vambo.quiz WHERE LessonID =?";
+        console.log('Received')
+        var sql = "DELETE FROM vambo.quiz WHERE quizId =?";
         connection.query(sql, [req.body.Id], (err, results, fields) => {
             if (err) {
                 console.log(err)
             } else {
                 res.send({'message':'Data is deleted'});
+                console.log('Word Association is deleted')
             }
         })
     })

@@ -219,7 +219,7 @@ module.exports = function (app, connection, jwt) {
         })
     });
     
-    // Get 
+    // Get Word Association
     app.get('/api/getWordassociation' , (req, res) => {
         connection.query ('SELECT * FROM vambo.quiz', (err, rows, fields)=>{
             if(!err){
@@ -227,7 +227,7 @@ module.exports = function (app, connection, jwt) {
                let wordassociation =[];
                //Looping throw all languagess
                 for (var i in rows) {
-                    var getId= count[i].wordAssociationId;
+                    var getId= count[i].quizId;
                     var option1 = count[i].option1;
                     var option2 = count[i].option2;
                     var pathaudio = count[i].AudioPath;
