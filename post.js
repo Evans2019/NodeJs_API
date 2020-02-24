@@ -52,9 +52,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         var sqlQuiz = "DELETE FROM vambo.quiz WHERE LessonID =? ";
         connection.query(sql, [req.body.lessonId], (err, results, fields) => {
                 if (err) {
-                   
+                    console.log(err)
                 } else {
-                    console.
                     connection.query(sqlWord, [req.body.lessonId], (err, results, fields) => {
                         if (err) {
                             console.log(err)
@@ -697,11 +696,12 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                let storeLessons =[];
                //Looping throw all Lessons
                 for (var i in rows) {
+                    var getalllessonId = count[i].lessonId;
                     var getallLesson = count[i].lessonname;
                     var getallCourse = count[i].course;
                     var getallLanguage = count[i].Language;
                     var getallLessontype = count[i].lessontype;
-                    storeLessons.push({Lesson: getallLesson, Language: getallLanguage, course:getallCourse, lessontype:getallLessontype });
+                    storeLessons.push({ lessonId:getalllessonId, Lesson: getallLesson, Language: getallLanguage, course:getallCourse, lessontype:getallLessontype });
                 }
                 res.json(storeLessons);
                 
