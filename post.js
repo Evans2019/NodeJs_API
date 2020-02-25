@@ -50,6 +50,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
         var sql = "DELETE FROM vambo.lessons WHERE lessonId =? ";
         var sqlWord = "DELETE FROM vambo.wordassociation WHERE LessonID =? ";
         var sqlQuiz = "DELETE FROM vambo.quiz WHERE LessonID =? ";
+        var sqlSentance = "DELETE FROM vambo.sentancecontruction WHERE Lessonid =? ";
         connection.query(sql, [req.body.lessonId], (err, results, fields) => {
                 if (err) {
                     console.log(err)
@@ -62,7 +63,13 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                                 if (err) {
                                     console.log(err)
                                 } else {
-                                    res.send({'message':'Data is deleted'});
+                                    connection.query(sqlSentance, [req.body.lessonId], (err, results, fields) => {
+                                        if (err) {
+                                            console.log(err)
+                                        } else {
+                                            res.send({'message':'Data is deleted'});
+                                        }
+                                    })
                                 }
                             })
                         }
@@ -216,8 +223,8 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
 
     //uploading sentance contruction
     app.post('/api/sentancecontruction', (req, res) =>{
-        var sql = "INSERT INTO vambo.sentancecontruction (SCId  , sentence , sentenseconstruction ,Datecreated) VALUES ?";
-        var values =[[uniqid('WordAss-'),req.body.sentance,req.body.sentanceContruction,datetime]];
+        var sql = "INSERT INTO vambo.sentancecontruction (SCId  ,lessonname, Lessonid, sentence , sentenseconstruction ,Datecreated) VALUES ?";
+        var values =[[uniqid('WordAss-'),req.body.sentance,req.body.lessonname,req.body.Lessonid,req.body.sentanceContruction,datetime]];
         connection.query(sql, [values], (err, results, fields) => {
             if (err) {
                 console.log(err);
@@ -297,7 +304,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
                 if (err) {
                     console.log(err)
                 } else {
-                    res.send({'message':'Data saved you can create another Word Association'});
+                    res.send({'message':'Data saved you can create another quiz'});
                 }
             })
         }
