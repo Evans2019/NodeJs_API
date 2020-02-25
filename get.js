@@ -9,9 +9,11 @@ module.exports = function (app, connection, jwt) {
                //Looping throw all languages
                 for (var i in rows) {
                     var getId= count[i].SCId;
+                    var getallLessonID = count[i].Lessonid;
+                    var getallLessonName = count[i].lessonname;
                     var getallfirstsentance = count[i].sentence;
                     var getallsecondsentance = count[i].sentenseconstruction;
-                    sentancecontruction.push({Id: getId ,Firstsentance: getallfirstsentance, Secondsentance:getallsecondsentance});
+                    sentancecontruction.push({Id: getId ,Lessonid: getallLessonID,lessonname: getallLessonName,Firstsentance: getallfirstsentance, Secondsentance:getallsecondsentance});
                 }
                 res.json(sentancecontruction);
                 
