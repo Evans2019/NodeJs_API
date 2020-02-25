@@ -224,7 +224,7 @@ module.exports = function (app, bcrypt, connection , transporter,jwt,uniqid,mime
     //uploading sentance contruction
     app.post('/api/sentancecontruction', (req, res) =>{
         var sql = "INSERT INTO vambo.sentancecontruction (SCId  ,lessonname, Lessonid, sentence , sentenseconstruction ,Datecreated) VALUES ?";
-        var values =[[uniqid('WordAss-'),req.body.sentance,req.body.lessonname,req.body.Lessonid,req.body.sentanceContruction,datetime]];
+        var values =[[uniqid('WordAss-'),req.body.lessonname,req.body.Lessonid,req.body.sentance,req.body.sentanceContruction,datetime]];
         connection.query(sql, [values], (err, results, fields) => {
             if (err) {
                 console.log(err);
